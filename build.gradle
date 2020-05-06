@@ -1,0 +1,41 @@
+plugins {
+    id "java"
+    id "idea"
+    id "maven-publish"
+}
+
+group "net.wytrem.spigot"
+version "1.1"
+
+sourceCompatibility = 1.8
+
+idea {
+    module {
+        downloadJavadoc = true
+    }
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    //Spigot
+    maven { url "https://hub.spigotmc.org/nexus/content/repositories/snapshots/" }
+    //Because Spigot depends on Bungeecord ChatComponent-API
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+}
+
+dependencies {
+    compileOnly 'org.spigotmc:spigot-api:1.15.2-R0.1-SNAPSHOT' // The Spigot API with no shadowing. Requires the OSS repo.
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            artifactId = 'commented-yaml'
+
+            from components.java
+        }
+    }
+}
+
+
